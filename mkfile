@@ -1,4 +1,6 @@
-#!/usr/bin/bash -e
+#!/usr/bin/env bash
+
+set -e
 
 d:
   npm run dev

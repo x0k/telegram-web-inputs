@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
     mk.url = "github:x0k/mk";
   };
   outputs =
@@ -13,9 +13,6 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config = {
-          permittedInsecurePackages = [ "python-2.7.18.8" ];
-        };
       };
     in
     {
@@ -23,7 +20,7 @@
         default = pkgs.mkShell {
           buildInputs = [
             mk.packages.${system}.default
-            pkgs.nodejs
+            pkgs.nodejs_23
           ];
         };
       };

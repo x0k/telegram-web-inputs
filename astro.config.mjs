@@ -1,26 +1,28 @@
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "node:url";
 
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
-import remarkMermaid from 'astro-diagram/remark-mermaid';
-
+import rehypeMermaid from 'rehype-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx()],
+  integrations: [mdx()],
   site: "https://x0k.github.io",
   base: "/telegram-web-inputs",
   markdown: {
-    remarkPlugins: [
-      remarkMermaid
-    ]
+    syntaxHighlight: {
+      type: "shiki",
+      excludeLangs: ["mermaid"],
+    },
+    rehypePlugins: [rehypeMermaid],
   },
   vite: {
+    plugins: [tailwindcss()],
     resolve: {
       alias: {
-        "@": fileURLToPath(new URL('./src', import.meta.url))
-      }
-    }
-  }
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
+    },
+  },
 });
